@@ -111,11 +111,11 @@ if (is_empty(sheets)) {
 
 df <- sheets %>%
     map_dfr(
-        ~ read_excel(args$file, sheet = .x,
-                     skip = as.integer(args$skip_rows),
-                     col_names = (!args$no_header)) %>%
-            mutate(across(everything(), as.character)) %>%
-            mutate(sheet_name = .x)
+        ~ suppressMessages(read_excel(args$file, sheet = .x,
+                                      skip = as.integer(args$skip_rows),
+                                      col_names = (!args$no_header))) %>%
+    mutate(across(everything(), as.character)) %>%
+    mutate(sheet_name = .x)
     )
 
 mdf <- df %>%
